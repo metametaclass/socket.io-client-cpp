@@ -31,7 +31,8 @@ using namespace std;
 namespace sio
 {
     /*************************public:*************************/
-    client_impl::client_impl() :
+    client_impl::client_impl(const std::string& path) :
+        m_path(path),
         m_ping_interval(0),
         m_ping_timeout(0),
         m_network_thread(),
@@ -222,7 +223,7 @@ namespace sio
             } else {
                 ss<<uo.get_host();
             }
-            ss<<":"<<uo.get_port()<<"/socket.io/?EIO=3&transport=websocket";
+            ss<<":"<<uo.get_port()<< m_path << "?EIO=3&transport=websocket";
             if(m_sid.size()>0){
                 ss<<"&sid="<<m_sid;
             }

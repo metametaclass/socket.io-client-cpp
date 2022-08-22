@@ -65,7 +65,7 @@ public:
     }
 };
 
-int participants = -1;
+int64_t participants = -1;
 
 socket::ptr current_socket;
 
@@ -104,14 +104,18 @@ void bind_events()
 
 MAIN_FUNC
 {
-
-    sio::client h;
+    if (argc < 2) {
+        HIGHLIGHT("usage: sio_console_demo http://hostname:port/");
+        return 1;
+    }
+    sio::client h("/chat/api/v1/chat/socketio2/");
     connection_listener l(h);
     
     h.set_open_listener(std::bind(&connection_listener::on_connected, &l));
     h.set_close_listener(std::bind(&connection_listener::on_close, &l,std::placeholders::_1));
     h.set_fail_listener(std::bind(&connection_listener::on_fail, &l));
-    h.connect("http://127.0.0.1:3000");
+
+    h.connect(argv[1]);
     _lock.lock();
     if(!connect_finish)
     {

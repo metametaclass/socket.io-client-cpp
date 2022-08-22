@@ -31,7 +31,7 @@ namespace sio
         
         typedef std::function<void(std::string const& nsp)> socket_listener;
         
-        client();
+        client(const std::string& path = "/socket.io/");
         ~client();
         
         //set listeners and event bindings.

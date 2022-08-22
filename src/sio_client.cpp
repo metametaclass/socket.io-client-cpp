@@ -12,8 +12,8 @@ using std::stringstream;
 
 namespace sio
 {
-    client::client():
-        m_impl(new client_impl())
+    client::client(const std::string& path):
+        m_impl(new client_impl(path))
     {
     }
     

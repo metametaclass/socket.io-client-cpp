@@ -61,7 +61,7 @@ namespace sio
             con_closed
         };
         
-        client_impl();
+        client_impl(const std::string& path);
         
         ~client_impl();
         
@@ -181,6 +181,9 @@ namespace sio
         
         context_ptr on_tls_init(connection_hdl con);
         #endif
+
+        // socket.io api path
+        
         
         // Percent encode query string
         std::string encode_query_string(const std::string &query);
@@ -190,6 +193,7 @@ namespace sio
         client_type m_client;
         // Socket.IO server settings
         std::string m_sid;
+        std::string m_path;
         std::string m_base_url;
         std::string m_query_string;
         std::map<std::string, std::string> m_http_headers;
